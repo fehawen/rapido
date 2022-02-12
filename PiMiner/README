@@ -1,13 +1,13 @@
 PiMiner
 =======
 
-Monero crypto mining with XMRig.
+Monero XMR crypto mining with XMRig.
 
 
 Prerequisites
 -------------
 
-- Preferably a Raspberry Pi 4 with 8GB RAM)
+- Preferably a Raspberry Pi 4 with 8GB RAM
 - MicroSD card and reader
 - Raspberry Pi OS Lite 64-bit
 - Raspberry Pi Imager
@@ -36,7 +36,7 @@ Installation
 Connect to your Raspberry Pi via SSH.
 
 If you're connecting via wifi and plan on using your PiMiner at more than one
-location, you may want to add an entry for each network.
+location, you may want to add an entry for each location's network.
 
     $ sudo vi /etc/wpa_supplicant/wpa_supplicant.conf
 
