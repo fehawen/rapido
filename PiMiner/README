@@ -1,0 +1,108 @@
+PiMiner
+=======
+
+Monero crypto mining with XMRig.
+
+
+Prerequisites
+-------------
+
+- Preferably a Raspberry Pi 4 with 8GB RAM)
+- MicroSD card and reader
+- Raspberry Pi OS Lite 64-bit
+- Raspberry Pi Imager
+- Monero GUI Wallet
+
+Download the OS and Imager here:
+https://www.raspberrypi.com/software/
+
+Flash the OS to your MicroSD card using the Raspberry Pi Imager.
+Choose "Use custom" in the OS options and select the 64-bit Raspberry Pi OS Lite
+image that you downloaded. Before flashing, enable SSH in the settings menu and
+set a username and password. Make sure to configure wifi as well, unless you're
+using an ethernet connection.
+
+Download the Monero GUI Wallet here:
+https://web.getmonero.org/downloads/#gui
+
+Follow the instructions to set up your account and wallet. Once the application
+is done synchronizing, go to the Account tab and copy your wallet address to the
+clipboard. You'll be needing it later.
+
+
+Installation
+------------
+
+Connect to your Raspberry Pi via SSH.
+
+If you're connecting via wifi and plan on using your PiMiner at more than one
+location, you may want to add an entry for each network.
+
+    $ sudo vi /etc/wpa_supplicant/wpa_supplicant.conf
+
+It should look something like this.
+
+    ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+    update_config=1
+    country=<Insert 2 letter ISO 3166-1 country code here>
+
+    network={
+        ssid="<Insert network SSID here>"
+        psk="<Insert network password here>"
+        priority=1
+        id_str="home"
+    }
+
+    network={
+        ssid="<Insert network SSID here>"
+        psk="<Insert network password here>"
+        priority=2
+        id_str="garage"
+    }
+
+    network={
+        ssid="<Insert network SSID here>"
+        psk="<Insert network password here>"
+        priority=3
+        id_str="office"
+    }
+
+For the changes to take effect, rebooting your Pi will do the trick.
+
+As for that 2 letter ISO 3166-1 country code, you'll find them all here:
+https://www.iso.org/obp/ui/#search/code/
+
+Install the dependencies needed to build XMRig.
+
+    $ sudo apt update
+
+    $ sudo apt install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev -y
+
+Clone the XMRig repository.
+
+    $ git clone https://github.com/xmrig/xmrig.git
+
+Create a build directory and compile xmrig.
+
+    $ mkdir xmrig/build
+
+    $ cd xmrig/build
+
+    $ cmake ..
+
+    $ make
+
+Once the compilation is done, you're ready to start mining. Remember that wallet
+address you copied to the clipboard earlier? Now is the time to paste it.
+
+    $ ./xmrig -o pool.minexmr.com:4444 -u <Insert wallet address here>
+
+Although the command above will get you up and running without further ado, you
+may want to have a look at all the available options.
+
+    $ ./xmrig --help
+
+If you want to use a mining pool other than MineXMR, have a look here:
+https://pools.xmr.wiki/
+
+Heigh-Ho.
