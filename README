@@ -4,7 +4,4 @@ rapido
 Things to do with a Raspberry Pi.
 
 
-PiMiner
--------
-
-Monero XMR crypto mining with XMRig.
+- PiMiner: Monero XMR crypto mining with XMRig
